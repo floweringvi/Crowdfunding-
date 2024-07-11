@@ -5,7 +5,7 @@ const { Project } = require('../../models');
 //If a GET request is made to /api/projects/:id, a specific project's information will be loaded on the page.
 router.get('/:id', async (req,res) => {
   try {
-    const projectData =await Project.findbyPK( req.params.id);
+    const projectData =await Project.findbyPK(req.params.id);
 
     if(!projectData){
       res.status(404).json({message:"No projects found!"});
@@ -16,7 +16,7 @@ router.get('/:id', async (req,res) => {
   } catch(err) {
     res.status(500).json(err)
   }
-})
+});
 
 
 
