@@ -2,6 +2,24 @@ const router = require('express').Router();
 // Import the Project model from the models folder
 const { Project } = require('../../models');
 
+//If a GET request is made to /api/projects/:id, a specific project's information will be loaded on the page.
+router.get('/:id', async (req,res) => {
+  try {
+    const projectData =await Project.findbyPK( req.params.id);
+
+    if(!projectData){
+      res.status(404).json({message:"No projects found!"});
+      return;
+    }
+    res.status(200).json(projectData)
+  
+  } catch(err) {
+    res.status(500).json(err)
+  }
+})
+
+
+
 // If a POST request is made to /api/projects, a new project is created. If there is an error, the function returns with a 400 error. 
 router.post('/', async (req, res) => {
   try {
@@ -36,6 +54,6 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json(err);
   }
 });
-router.get ('/:id')
+
 
 module.exports = router;
